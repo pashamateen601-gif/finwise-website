@@ -299,3 +299,28 @@ function displayResults(recommendations) {
 
   resultsContent.innerHTML = html;
 }
+document.getElementById("advisorForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const income = Number(document.getElementById("income").value);
+  const expenses = Number(document.getElementById("expenses").value);
+  const savings = income - expenses;
+  const risk = document.getElementById("risk").value;
+
+  let advice = "";
+
+  if (savings <= 0) {
+    advice = "⚠ Focus on reducing expenses before investing.";
+  } else if (risk === "low") {
+    advice = "✅ Invest in Fixed Deposits, Index Funds, and build an emergency fund.";
+  } else if (risk === "medium") {
+    advice = "📈 Mix of Index Funds and Mutual Funds is recommended.";
+  } else {
+    advice = "🚀 You can consider Equity Funds and long-term investments.";
+  }
+
+  document.getElementById("advisorResults").style.display = "block";
+  document.getElementById("resultsContent").innerHTML =
+    `<p><strong>Monthly Savings:</strong> ₹${savings}</p>
+     <p>${advice}</p>`;
+});
